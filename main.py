@@ -13,7 +13,6 @@ def read_csv_file(file_path):
 
 
 
-# Provide the path to your CSV file
 csv_file_path = 'processNoDupClinicalTrials.csv'
 
 rows=read_csv_file(csv_file_path)
@@ -23,12 +22,10 @@ import openai
 
 
 
-# Set up the OpenAI API key and model ID
-openai.api_key = "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"
-model_id = "gpt-4-0314"
+openai.api_key = "######"
+model_id = "######"
 
 def ask_gpt(input_value):
-    # Define the prompt to extract the product information
     prompt = f""" {input_value}"""
     try:
         response = openai.ChatCompletion.create(
@@ -58,13 +55,12 @@ Here is the input CSV\n"""},
     rows=response
 
 
-    # Parse the CSV output and extract the title and images URLs
     rows = response.choices[0].message.content
 
     return rows
 
 def write_results(response):
-    with open("PD-L1.csv", "a+", encoding="utf-8") as output:
+    with open("output.csv", "a+", encoding="utf-8") as output:
         writer = csv.writer(output, lineterminator='\n')
         writer.writerow(response)
 
