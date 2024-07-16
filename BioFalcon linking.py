@@ -26,7 +26,6 @@ def Biofalcon_call(text):
     else:
         return []
 
-# Read CSV file and extract desired columns
 csv_file_path = 'CR-DrugsChemotherapy.csv'
 columns = ['drugName1', 'drugName2', 'drugName3']
 
@@ -35,7 +34,6 @@ with open(csv_file_path, 'r', encoding='utf-8', errors='ignore') as file:
     reader = csv.DictReader(file)
     fieldnames = reader.fieldnames
 
-    # Create new fieldnames with updated column names
     new_fieldnames = []
     for column in fieldnames:
         new_fieldnames.append(column)
@@ -45,7 +43,6 @@ with open(csv_file_path, 'r', encoding='utf-8', errors='ignore') as file:
     for row in reader:
         texts = [row[column] for column in columns]
 
-        # Perform BioFalcon API call on each text
         results = []
         for text in texts:
             if text == "":
@@ -58,7 +55,6 @@ with open(csv_file_path, 'r', encoding='utf-8', errors='ignore') as file:
                     noun_results.append(noun_result)
                 results.append(noun_results)
 
-        # Add results and updated column names to the row
         new_row = {}
         for column, value in row.items():
             new_row[column] = value
@@ -69,8 +65,7 @@ with open(csv_file_path, 'r', encoding='utf-8', errors='ignore') as file:
         rows.append(new_row)
 
 
-# Write results to a new CSV file or overwrite the original file
-output_file_path = 'CR-DrugsChemotherapy(with CUI).csv'  # Replace with the desired output file path
+output_file_path = 'output.csv'  
 
 with open(output_file_path, 'w',encoding='utf-8', newline="") as file:
     writer = csv.DictWriter(file, fieldnames=new_fieldnames)
